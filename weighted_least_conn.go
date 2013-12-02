@@ -42,7 +42,7 @@ type WeightedLeastConnectionsScheduler struct {
 }
 
 // NewWeightedLeastConnectionsScheduler returns a new WeightedLeastConnectionsScheduler
-func NewWeightedLeastConnectionsScheduler(backends []*Backend) *WeightedLeastConnectionsScheduler {
+func NewWeightedLeastConnectionsScheduler(backends []*Backend) Scheduler {
 	return &WeightedLeastConnectionsScheduler{
 		backends: backends,
 	}

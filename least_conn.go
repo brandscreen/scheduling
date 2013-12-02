@@ -31,7 +31,7 @@ type LeastConnectionsScheduler struct {
 
 // NewLeastConnectionsScheduler returns a new LeastConnectionsScheduler with the given
 // backends.
-func NewLeastConnectionsScheduler(backends []*Backend) *LeastConnectionsScheduler {
+func NewLeastConnectionsScheduler(backends []*Backend) Scheduler {
 	return &LeastConnectionsScheduler{
 		backends: backends,
 	}

@@ -31,7 +31,7 @@ type RoundRobinScheduler struct {
 }
 
 // NewRoundRobinScheduler return a new RoundRobinScheduler
-func NewRoundRobinScheduler(backends []*Backend) *RoundRobinScheduler {
+func NewRoundRobinScheduler(backends []*Backend) Scheduler {
 	return &RoundRobinScheduler{
 		backends:    backends,
 		lastBackend: 0,
