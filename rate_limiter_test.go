@@ -22,7 +22,7 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
 
 import (
-	"code.brandscreen.net/go/scheduling"
+	"github.com/brandscreen/scheduling"
 	"testing"
 	"time"
 )
