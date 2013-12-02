@@ -1,5 +1,7 @@
-The MIT License (MIT)
+// Package scheduling provides a variety of scheduling and rate limiting algorithms.
+package scheduling
 
+/*
 Copyright (c) 2013 Brandscreen Pty Ltd
 
 Permission is hereby granted, free of charge, to any person obtaining a copy of
@@ -18,3 +20,13 @@ FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR
 COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER
 IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN
 CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+*/
+
+// Scheduler is an interface implemented by all schedulers.
+type Scheduler interface {
+	// Schedule returns the next backend according to the algorithm.
+	Schedule() *Backend
+
+	// Returns the backends in use
+	GetBackends() []*Backend
+}
