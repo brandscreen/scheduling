@@ -63,4 +63,6 @@ func TestRateLimiter(t *testing.T) {
 
 		time.Sleep(test.sleep * time.Millisecond)
 	}
+	r.Close()
+	time.Sleep(10 * time.Millisecond)
 }
