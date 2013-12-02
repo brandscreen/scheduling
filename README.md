@@ -34,13 +34,15 @@ import "github.com/brandscreen/scheduling"
 
 ### Setup the Backends
 
-Setup a slice of Backends.  Each Backend has a `Value` which provides context to the application for selecting the real server.
+Setup a slice of Backends.  Each `Backend` has a `Value` which provides context to the application for selecting the real server.
 
 ```golang
-backends := make([]*Backend, 3)
+var server1, server2, server3 interface{} // These are your actual servers...
+
+backends := make([]*scheduling.Backend, 3)
 backends[0] = scheduling.NewBackend(server1)
-backends[1] = scheduling.NewWeightedBackend(server1, 50)
-backends[2] = scheduling.NewBackend(server1)
+backends[1] = scheduling.NewWeightedBackend(server2, 50)
+backends[2] = scheduling.NewBackend(server3)
 ```
 
 ### Create a Scheduler
@@ -67,7 +69,7 @@ scheduler := scheduling.NewWeightedLeastConnectionsScheduler(backends)
 
 ### Schedule an activity using the Scheduler
 
-Call the `Schedule` function on the scheduler to obtain the selected backend.  Note you should call `Close()` in order to release the backend otherwise the connection count will continue to increase.
+Call the `Schedule` function on the scheduler to obtain the selected `Backend`.  Note you should call `Close()` in order to release the backend otherwise the connection count will continue to increase.
 
 ```golang
 backend := scheduler.Schedule()
@@ -80,8 +82,9 @@ Not strictly a scheduling algorithm, you can rate limit requests to a backend us
 
 ### Create a RateLimiter
 
+This example creates a `RateLimiter` that is limited to 500 requests per second.  Ensure to import `time` package.
+
 ```golang
-// This limiter is limited to 500 requests per second (ensure to import time package).
 limiter := scheduling.NewRateLimiter(500, time.Second)
 ```
 
