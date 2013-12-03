@@ -1,4 +1,4 @@
-package scheduling_test
+package scheduling
 
 /*
 Copyright (c) 2013 Brandscreen Pty Ltd
@@ -22,18 +22,17 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
 
 import (
-	"github.com/brandscreen/scheduling"
 	"testing"
 )
 
 func TestLeastConnections(t *testing.T) {
-	s := scheduling.NewLeastConnectionsScheduler(
-		[]*scheduling.Backend{
-			&scheduling.Backend{Weight: 100, Connections: 5},
-			&scheduling.Backend{Weight: 100, Connections: 2},
-			&scheduling.Backend{Weight: 100, Connections: 6},
-			&scheduling.Backend{Weight: 50, Connections: 4},
-			&scheduling.Backend{Weight: 100, Connections: 5},
+	s := NewLeastConnectionsScheduler(
+		[]*Backend{
+			&Backend{Weight: 100, Connections: 5},
+			&Backend{Weight: 100, Connections: 2},
+			&Backend{Weight: 100, Connections: 6},
+			&Backend{Weight: 50, Connections: 4},
+			&Backend{Weight: 100, Connections: 5},
 		})
 	runTests(t, s, [][]uint32{
 		{5, 3, 6, 4, 5},
@@ -49,13 +48,13 @@ func TestLeastConnections(t *testing.T) {
 }
 
 func TestLeastConnectionsWithNoBackends(t *testing.T) {
-	s := scheduling.NewLeastConnectionsScheduler(make([]*scheduling.Backend, 0))
+	s := NewLeastConnectionsScheduler(make([]*Backend, 0))
 	expectBackend(t, s, false)
 }
 
 func TestLeastConnectionsWithSingleBackend(t *testing.T) {
-	s := scheduling.NewLeastConnectionsScheduler([]*scheduling.Backend{
-		&scheduling.Backend{Weight: 100},
+	s := NewLeastConnectionsScheduler([]*Backend{
+		&Backend{Weight: 100},
 	})
 	runTests(t, s, [][]uint32{
 		{1},
@@ -67,8 +66,8 @@ func TestLeastConnectionsWithSingleBackend(t *testing.T) {
 }
 
 func TestLeastConnectionsWithSingleInactiveBackend(t *testing.T) {
-	s := scheduling.NewLeastConnectionsScheduler([]*scheduling.Backend{
-		&scheduling.Backend{Weight: 0},
+	s := NewLeastConnectionsScheduler([]*Backend{
+		&Backend{Weight: 0},
 	})
 	runTests(t, s, [][]uint32{
 		{0},

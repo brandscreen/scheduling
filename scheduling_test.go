@@ -1,4 +1,4 @@
-package scheduling_test
+package scheduling
 
 /*
 Copyright (c) 2013 Brandscreen Pty Ltd
@@ -22,12 +22,11 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
 
 import (
-	"github.com/brandscreen/scheduling"
 	"fmt"
 	"testing"
 )
 
-func connectionsMatch(backend []*scheduling.Backend, connections []uint32) bool {
+func connectionsMatch(backend []*Backend, connections []uint32) bool {
 	for i := range connections {
 		if backend[i].Connections != connections[i] {
 			return false
@@ -36,7 +35,7 @@ func connectionsMatch(backend []*scheduling.Backend, connections []uint32) bool 
 	return true
 }
 
-func runTests(t *testing.T, scheduler scheduling.Scheduler, tests [][]uint32) {
+func runTests(t *testing.T, scheduler Scheduler, tests [][]uint32) {
 	for _, test := range tests {
 		scheduler.Schedule()
 		if !connectionsMatch(scheduler.GetBackends(), test) {
@@ -47,7 +46,7 @@ func runTests(t *testing.T, scheduler scheduling.Scheduler, tests [][]uint32) {
 	}
 }
 
-func expectBackend(t *testing.T, scheduler scheduling.Scheduler, expected bool) {
+func expectBackend(t *testing.T, scheduler Scheduler, expected bool) {
 	be := scheduler.Schedule()
 	if expected {
 		if be == nil {

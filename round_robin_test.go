@@ -1,4 +1,4 @@
-package scheduling_test
+package scheduling
 
 /*
 Copyright (c) 2013 Brandscreen Pty Ltd
@@ -22,17 +22,16 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
 
 import (
-	"github.com/brandscreen/scheduling"
 	"testing"
 )
 
 func TestRoundRobin(t *testing.T) {
-	s := scheduling.NewRoundRobinScheduler([]*scheduling.Backend{
-		&scheduling.Backend{Weight: 100, Connections: 5},
-		&scheduling.Backend{Weight: 100, Connections: 2},
-		&scheduling.Backend{Weight: 100, Connections: 6},
-		&scheduling.Backend{Weight: 50, Connections: 4},
-		&scheduling.Backend{Weight: 100, Connections: 5},
+	s := NewRoundRobinScheduler([]*Backend{
+		&Backend{Weight: 100, Connections: 5},
+		&Backend{Weight: 100, Connections: 2},
+		&Backend{Weight: 100, Connections: 6},
+		&Backend{Weight: 50, Connections: 4},
+		&Backend{Weight: 100, Connections: 5},
 	})
 	runTests(t, s, [][]uint32{
 		{5, 3, 6, 4, 5},
@@ -49,8 +48,8 @@ func TestRoundRobin(t *testing.T) {
 }
 
 func TestRoundRobinWithSingleBackend(t *testing.T) {
-	s := scheduling.NewRoundRobinScheduler([]*scheduling.Backend{
-		&scheduling.Backend{Weight: 100},
+	s := NewRoundRobinScheduler([]*Backend{
+		&Backend{Weight: 100},
 	})
 	runTests(t, s, [][]uint32{
 		{1},
@@ -62,8 +61,8 @@ func TestRoundRobinWithSingleBackend(t *testing.T) {
 }
 
 func TestRoundRobinWithSingleInactiveBackend(t *testing.T) {
-	s := scheduling.NewRoundRobinScheduler([]*scheduling.Backend{
-		&scheduling.Backend{Weight: 0},
+	s := NewRoundRobinScheduler([]*Backend{
+		&Backend{Weight: 0},
 	})
 	runTests(t, s, [][]uint32{
 		{0},
@@ -75,9 +74,9 @@ func TestRoundRobinWithSingleInactiveBackend(t *testing.T) {
 }
 
 func TestRoundRobinWithTwoInactiveBackends(t *testing.T) {
-	s := scheduling.NewRoundRobinScheduler([]*scheduling.Backend{
-		&scheduling.Backend{Weight: 0},
-		&scheduling.Backend{Weight: 0},
+	s := NewRoundRobinScheduler([]*Backend{
+		&Backend{Weight: 0},
+		&Backend{Weight: 0},
 	})
 	runTests(t, s, [][]uint32{
 		{0},
@@ -89,6 +88,6 @@ func TestRoundRobinWithTwoInactiveBackends(t *testing.T) {
 }
 
 func TestRoundRobinWithNoBackends(t *testing.T) {
-	s := scheduling.NewRoundRobinScheduler(make([]*scheduling.Backend, 0))
+	s := NewRoundRobinScheduler(make([]*Backend, 0))
 	expectBackend(t, s, false)
 }

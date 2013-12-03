@@ -1,4 +1,4 @@
-package scheduling_test
+package scheduling
 
 /*
 Copyright (c) 2013 Brandscreen Pty Ltd
@@ -22,7 +22,6 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
 
 import (
-	"github.com/brandscreen/scheduling"
 	"testing"
 	"time"
 )
@@ -51,7 +50,7 @@ func TestRateLimiter(t *testing.T) {
 		{0, 0, false},
 	}
 
-	r := scheduling.NewRateLimiter(5, time.Millisecond)
+	r := NewRateLimiter(5, time.Millisecond)
 	for _, test := range tests {
 		if test.successful != r.Schedule() {
 			t.Error("Expected successful", test.successful)
