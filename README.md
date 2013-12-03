@@ -14,6 +14,10 @@ scheduling
 
 * Go 1.1 or higher
 
+# Documentation
+
+[Godoc](http://godoc.org/) documentation is available at [http://godoc.org/github.com/brandscreen/scheduling](http://godoc.org/github.com/brandscreen/scheduling).
+
 # Installation
 
 ```bash

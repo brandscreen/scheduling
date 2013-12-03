@@ -1,13 +1,11 @@
 language: go
 
 go:
-- 1.1
+- 1.2
 
-install:
-- go get github.com/axw/gocov/gocov
-- go get github.com/mattn/goveralls
+install: cat BUILD_DEPENDENCIES | xargs -I{} go get -v {}
 
-script: ../../../../bin/goveralls $GOVERALLS
+script: $HOME/gopath/bin/goveralls -v $GOVERALLS
 
 env:
   global:
