@@ -66,9 +66,9 @@ func (r *RateLimiter) Schedule() bool {
 		value := atomic.AddInt64(&r.Remaining, -1)
 		if value >= 0 {
 			return true
-		} else {
-			atomic.CompareAndSwapInt64(&r.Remaining, value, 0)
 		}
+
+		atomic.CompareAndSwapInt64(&r.Remaining, value, 0)
 	}
 
 	// Otherwise, the activity may not be scheduled.
